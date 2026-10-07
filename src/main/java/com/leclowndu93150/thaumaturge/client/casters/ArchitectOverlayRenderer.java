@@ -51,6 +51,7 @@ public final class ArchitectOverlayRenderer {
     };
 
     private static final int HASH_TICK_STEP = 5;
+    private static final float EPSILON = 1.0E-3F;
     private static final float HALF = 0.5F;
     private static final float SIDE_ALPHA = 0.1F;
     private static final float CORNER_ALPHA = 0.66F;
@@ -190,7 +191,7 @@ public final class ArchitectOverlayRenderer {
             poseStack.pushPose();
             poseStack.mulPose(new Quaternionf()
                     .rotationAxis((float) Math.toRadians(90.0), -face.getStepY(), face.getStepX(), -face.getStepZ()));
-            poseStack.translate(0.0, 0.0, face.getStepZ() < 0 ? -HALF : HALF);
+            poseStack.translate(0.0, 0.0, face.getStepZ() < 0 ? -HALF - EPSILON : HALF + EPSILON);
             poseStack.mulPose(new Quaternionf().rotationAxis((float) Math.toRadians(90.0), 0.0F, 0.0F, -1.0F));
             drawQuad(poseStack, buffers.getBuffer(SIDE_TYPE), 1.0F, 1.0F, 1.0F, SIDE_ALPHA);
             for (int a = 0; a < 4; a++) {
